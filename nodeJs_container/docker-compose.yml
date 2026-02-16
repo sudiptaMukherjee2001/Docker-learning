@@ -1,0 +1,5 @@
+services:
+  nodejsServerImage:
+    image: sudipta4docker/basic_nodejs
+    ports:
+      - "3000:5000"
