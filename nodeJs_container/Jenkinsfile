@@ -9,7 +9,7 @@ pipeline{
         stage("Build the image"){
             steps{
                 sh "echo Building the image"
-                sh "docker build -t sudipta4docker/nodejs-app:${BUILD_NUMBER} ."
+                sh "docker build -t sudipta4docker/nodejs-app:${BUILD_NUMBER} nodeJs_container"
             }
         }
         stage("Run the container"){
