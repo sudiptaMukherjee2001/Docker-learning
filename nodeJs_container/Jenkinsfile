@@ -18,5 +18,18 @@ pipeline{
                 sh "docker run -d -p 7393:5000 sudipta4docker/nodejs-app:${BUILD_NUMBER}"
             }
         }
+        stage("login to dockerhub"){
+            steps{
+               withCredentials([usernamePassword(credentialsId: 'dockerhub-cred', passwordVariable: 'dockerPass', usernameVariable: 'dockerUser')]) {
+                    sh "echo Logging in to Docker Hub"
+                    sh "echo $dockerPass | docker login -u $dockerUser --password-stdin"
+                }
+            }
+        }
+        stage("Push the image to dockerhub"){
+            steps{
+                sh "docker push sudipta4docker/nodejs-app:${BUILD_NUMBER}"
+            }
+        }
     }
 } 
