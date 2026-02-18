@@ -1,0 +1,21 @@
+pipeline{
+    agent{
+        docker{
+            image "node:lts-alpine3.22"// This will pull this image from docker hub and use it as the agent/ place where the pipeline will run
+        }
+    }
+    stages{
+        stage("Build the image"){
+            steps{
+                sh "echo Building the image"
+                sh "docker build -t sudipta4docker/nodejs-app:${BUILD_NUMBER} ."
+            }
+        }
+        stage("Run the container"){
+            steps{
+                sh "echo Running the container"
+                sh "docker run -d -p 7393:5000 sudipta4docker/nodejs-app:${BUILD_NUMBER}"
+            }
+        }
+    }
+} 
